@@ -1,0 +1,72 @@
+# Git Rebase: reorganizando el trabajo realizado
+
+El comando rebase es ***una mala práctica, nunca se debe usar\***, pero para efectos del curso te lo vamos a enseñar para que hagas tus propios experimentos. Con `rebase` puedes recoger todos los cambios confirmados en una rama y ponerlos sobre otra.
+
+
+
+- Cambiamos a la rama que queremos traer los cambios
+
+  `git checkout experiment`
+
+- Aplicamos rebase para traer los cambios de la rama que queremos
+
+   `git rebase master`
+
+- Después hacemos lo inverso:
+- `git checkout master` `git rebase experiment`
+
+Con git rebase podemos traer una rama al historial de otra ramana, es decir en vez de un merge podemos agregar los commits de una rama secundaria al historial de la rama principal, sin embargo esto es una mala practica, solamente se debería de usar de forma local.
+
+
+
+
+
+# Git Stash: Guardar cambios en memoria y recuperarlos después
+
+Cuando necesitamos regresar en el tiempo porque borramos alguna línea de código pero no queremos pasarnos a otra rama porque nos daría un error ya que debemos pasar ese “mal cambio” que hicimos a stage, podemos usar `git stash` para regresar el cambio anterior que hicimos.
+
+`git stash` es típico cuando estamos cambios que no merecen una rama o no merecen un *rebase* si no simplemente estamos probando algo y luego quieres volver rápidamente a tu versión anterior la cual es la correcta.
+
+
+
+- Podemos ver todo lo que tenemos en el stash usando
+
+  `git stash list`
+
+- Podemos ponerle un mensaje a un stash
+
+  `git stash save "mensaje identificador del elemento del stashed`"
+
+- Para aplicar los cambios de un stash específico y eliminarlo del stash:
+
+  `git stash pop stash@{<num_stash>}`
+
+- Para retomar los cambios de una posición específica del Stash puedes utilizar el comando:
+
+  `git stash apply stash@{<num_stash>}`
+
+- Podemos crear una rama con el stash 
+
+  `git stash branch <nombre_de_la_rama>`
+
+- Si deseas crear una rama con un stash específico puedes usar
+
+  `git stash branch nombre_de_rama stash@{<num_stash>}`
+
+- Para eliminar el stash puedes usar:
+
+  - Eliminar el elemento 0 `git stash drop` 
+
+  - Eliminar posición espefífica `git stash drop stash@{<num_stash>}`
+
+  - Eliminar todo el stash `git stash clear`
+
+
+
+# Git Clean: limpiar tu proyecto de archivos no deseados
+
+A veces creamos archivos cuando estamos realizando nuestro proyecto que realmente no forman parte de nuestro directorio de trabajo, que no se deberían agregar y lo sabemos.
+
+- Para saber qué archivos vamos a borrar tecleamos `git clean --dry-run`
+- Para borrar todos los archivos listados (que no son carpetas) tecleamos `git clean -f`
+
